@@ -13,12 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     let content = document.getElementsByClassName("movie")[0];
-    // document.getElementById("searchButton").addEventListener("submit", renderMovies(movieData))
-    // content.innerHTML = (renderMovies(movieData))   
-    $('#searchButton').click(function (e) {
+
+    document.getElementById("searchButton").addEventListener("submit", function(e) {
         e.preventDefault()
-        content.innerHTML = renderMovies(movieData)
-        console.log(renderMovies(movieData))
+        let searchString = document.getElementById("search-bar").value
+        let urlEncodedSearchString = encodeURIComponent(searchString)
+        axios.get('https://www.omdbapi.com/?apikey=3430a78&s=' + urlEncodedSearchString).then(function (response) {
+            console.log(response.data.Search)
+        })
     })
 })
 
